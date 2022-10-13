@@ -20,55 +20,100 @@
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
       <div class ='container'>
-        <h2>Контактная информация</h2>
-        <div class = "row100">
-          <div class = "col">
-            <div class = "inputBox">
-              <input  type = "text" name ="" required ="required">
-              <span class = "text">Имя</span>
-              <span class = "line"></span>
+        <form id="tg">
+        <h2>Оформление заказа</h2>
+          <div class = "row100">
+            <div class = "col">
+              <div class = "inputBox">
+                <input  type = "text" name ="name" required ="required">
+                <span class = "text">Имя</span>
+                <span class = "line"></span>
+              </div>
+            </div>
+            <div class = "col">
+              <div class = "inputBox">
+                <input  type = "text" name ="nick" required ="required">
+                <span class = "text">Никнейм в тг</span>
+                <span class = "line"></span>
+              </div>
             </div>
           </div>
-          <div class = "col">
-            <div class = "inputBox">
-              <input  type = "text" name ="" required ="required">
-              <span class = "text">Никнейм в тг</span>
-              <span class = "line"></span>
+          <div class = "row100">
+            <div class = "col">
+              <div class = "inputBox">
+                <input  type = "text" name ="city" required ="required">
+                <span class = "text">Город</span>
+                <span class = "line"></span>
+              </div>
+            </div>
+            <div class = "col">
+              <div class = "inputBox">
+                <input  type = "text" name ="size" required ="required">
+                <span class = "text">Размер в EU</span>
+                <span class = "line"></span>
+              </div>
             </div>
           </div>
-        </div>
-        <div class = "row100">
-          <div class = "col">
-            <div class = "inputBox">
-              <input  type = "text" name ="" required ="required">
-              <span class = "text">Город</span>
-              <span class = "line"></span>
+          <div class = "row100">
+            <div class = "col">
+              <div class = "inputBox textarea">
+                <textarea required = "required" name ="link"></textarea>
+                <span class = "text">Ссылка на товар</span>
+                <span class = "line"></span>
+              </div>
             </div>
           </div>
-          <div class = "col">
-            <div class = "inputBox">
-              <input  type = "text" name ="" required ="required">
-              <span class = "text">Размер в EU</span>
-              <span class = "line"></span>
+
+          <div id = "success" class="alert alert-success" role="alert" style="display: none"></div>
+
+          <div class = "row100">
+            <div class = "col">
+              <input type="submit" value="Отправить">
             </div>
           </div>
-        </div>
-        <div class = "row100">
-          <div class = "col">
-            <div class = "inputBox textarea">
-              <textarea required = "required"></textarea>
-              <span class = "text">Ссылка на товар</span>
-              <span class = "line"></span>
-            </div>
-          </div>
-        </div>
-        <div class = "row100">
-          <div class = "col">
-            <input type="submit" value="Отправить">
-          </div>
-        </div>
+        </form>
       </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
-  </body>
-</html>
+    <script>
+        const TOKEN = "5704330474:AAHqYZkRVHyPZCfWFMAlOfLPxqwR2ri05jE"
+        const CHAT_ID = "-1001662705434"
+        const URI_API = `https://api.telegram.org/bot${ TOKEN }/sendMessage`
+        const success = document.getElementById('success')
+
+        document.getElementById('tg').addEventListener('submit', function (e){
+          e.preventDefault()
+
+          let message = `<b>Заявка с сайта</b>\n`
+          message += `<b>Отправитель: </b> ${ this.name.value }\n`
+          message += `<b>Никнейм в тг: </b> ${ this.nick.value }\n`
+          message += `<b>Город: </b> ${ this.city.value }\n`
+          message += `<b>Размер в EU: </b> ${ this.size.value }\n`
+          message += `<b>Ссылка на товар: </b> ${ this.link.value }\n`
+
+          axios.post(URI_API, {
+            chat_id: CHAT_ID,
+            parse_mode: 'html',
+            text: message
+          })
+                  .then((res) => {
+                    this.name.value =""
+                    this.nick.value =""
+                    this.city.value =""
+                    this.size.value =""
+                    this.link.value =""
+                    success.innerHTML = "Cообщение отправлено!"
+                    success.style.display = "block"
+                  })
+                  .catch((res) => {
+                    console.warn(err)
+                  })
+                  .finally((res) => {
+                    console.log('Конец')
+                  })
+        })
+    </script>
+
+    </body>
+  </html>
