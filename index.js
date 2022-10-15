@@ -7,7 +7,7 @@ import serve from "koa-static";
 
 dotenv.config()
 
-const PORT = 3000
+const PORT = 80
 
 const app = new Koa();
 
