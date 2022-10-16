@@ -18,6 +18,9 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div className="App">
+      свернуть
+    </div>
     <div id="root"></div>
       <div class ='container'>
         <form id="tg">
@@ -79,7 +82,7 @@
     <script>
         const success = document.getElementById('success')
 
-        const url = 'http://localhost:80/api/orders/new'
+        const url = 'http://localhost:3000/api/orders/new'
 
         document.getElementById('tg').addEventListener('submit', function (e){
           e.preventDefault()

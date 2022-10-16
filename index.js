@@ -7,7 +7,7 @@ import serve from "koa-static";
 
 dotenv.config()
 
-const PORT = 80
+const PORT = 3000
 
 const app = new Koa();
 
@@ -16,4 +16,3 @@ app.use(serve('public'));
 app.use(routes())
 
 app.listen(PORT);
-
