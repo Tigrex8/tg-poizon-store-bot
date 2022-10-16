@@ -80,40 +80,44 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <script>
-        const success = document.getElementById('success')
+      const TOKEN = "5704330474:AAHqYZkRVHyPZCfWFMAlOfLPxqwR2ri05jE"
+      const CHAT_ID = "-1001662705434"
+      const URI_API = `https://api.telegram.org/bot${ TOKEN }/sendMessage`
+      const success = document.getElementById('success')
 
-        const url = 'http://83.136.233.136/api/orders/new'
+      document.getElementById('tg').addEventListener('submit', function (e){
+        e.preventDefault()
 
-        document.getElementById('tg').addEventListener('submit', function (e){
-          e.preventDefault()
+        let message = `<b>Заявка с сайта</b>\n`
+        message += `<b>Отправитель: </b> ${ this.name.value }\n`
+        message += `<b>Никнейм в тг: </b> ${ this.nick.value }\n`
+        message += `<b>Город: </b> ${ this.city.value }\n`
+        message += `<b>Размер в EU: </b> ${ this.size.value }\n`
+        message += `<b>Ссылка на товар: </b> ${ this.link.value }\n`
 
-          let message = `<b>Заявка с сайта</b>\n`
-          message += `<b>Отправитель: </b> ${ this.name.value }\n`
-          message += `<b>Никнейм в тг: </b> ${ this.nick.value }\n`
-          message += `<b>Город: </b> ${ this.city.value }\n`
-          message += `<b>Размер в EU: </b> ${ this.size.value }\n`
-          message += `<b>Ссылка на товар: </b> ${ this.link.value }\n`
-
-          axios.post(url, {
-            text: message
-          })
-                  .then(() => {
-                    this.name.value =""
-                    this.nick.value =""
-                    this.city.value =""
-                    this.size.value =""
-                    this.link.value =""
-                    success.innerHTML = "Cообщение отправлено!"
-                    success.style.display = "block"
-                  })
-                  .catch((err) => {
-                    console.warn(err)
-                  })
-                  .finally(() => {
-                    console.log('Конец')
-                  })
+        axios.post(URI_API, {
+          chat_id: CHAT_ID,
+          parse_mode: 'html',
+          text: message
         })
+                .then((res) => {
+                  this.name.value =""
+                  this.nick.value =""
+                  this.city.value =""
+                  this.size.value =""
+                  this.link.value =""
+                  success.innerHTML = "Cообщение отправлено!"
+                  success.style.display = "block"
+                })
+                .catch((res) => {
+                  console.warn(err)
+                })
+                .finally((res) => {
+                  console.log('Конец')
+                })
+      })
     </script>
+
 
     </body>
   </html>
