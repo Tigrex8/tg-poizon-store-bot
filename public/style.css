@@ -18,7 +18,7 @@ body
 
 .container {
     width: 80%;
-    padding: 20px;
+    padding: 20px 0 150px;
 }
 
 .container h2 {
@@ -133,4 +133,13 @@ input[type = "submit"] {
     color: #000;
     font-size: 18px;
     border-radius: 2px;
+}
+
+.invisible {
+    color: #FFE4B5;
+    margin: 10px;
+}
+
+.col {
+    margin-bottom: 50px ;
 }
