@@ -119,5 +119,34 @@
                 })
       })
     </script>
+    <script>
+      // Добавляем обработчик события на body. Обрабатываем любое нажатие.
+      document.body.addEventListener("click", function(event) {
+
+        // В случае, если нажатие произошло на любой элемент отличный от input или textarea.
+        if (event.target.tagName !== "INPUT" && event.target.tagName !== "TEXTAREA") {
+
+          // Проходимся по всем элементам input на странице.
+          document.querySelectorAll("input").forEach((element) => {
+
+            // Снимаем выделение.
+            element.blur();
+
+          });
+
+          // Проходимся по всем элементам textarea на странице.
+          document.querySelectorAll("textarea").forEach((element) => {
+
+            // Снимаем выделение.
+            element.blur();
+
+          });
+
+        }
+
+      });
+    </script>
+
+
     </body>
   </html>
